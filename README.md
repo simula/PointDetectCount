@@ -74,6 +74,13 @@ SHA-256 hash as the filename.
 
 ---
 
+## 💾 Fine-Tuned Model
+
+Model weights are available via Hugging Face:
+👉 [`SimulaMet/PointDetectCount-Qwen2.5-VL-7B-LoRA`](https://huggingface.co/SimulaMet/PointDetectCount-Qwen2.5-VL-7B-LoRA)
+
+---
+
 ## 🛠️ Repository Structure
 
 | File/Folder           | Description                                                              |
@@ -100,6 +107,41 @@ Compare your model's predictions with the provided ground truth using:
 
 ```bash
 python evaluate_qwen.py --dataset kvasir_valid-qwen-6task-test.jsonl --results kvasir_valid-qwen-6task-test-result.jsonl
+```
+
+### Fine-Tune Qwen (LoRA)
+
+Training uses the instruction-fused training file available at
+[`multi-task-train.jsonl`](https://huggingface.co/datasets/SimulaMet/MedMultiPoints/resolve/main/instruction_dataset/multi-task-train.jsonl):
+
+```bash
+swift sft --model Qwen/Qwen2.5-VL-7B-Instruct \
+    --train_type lora \
+    --dataset /home/sushant/D1/MIUA/kvasir-format/multi-task-train.jsonl \
+    --output_dir /home/sushant/D1/MIUA/kvasir-format/training2 \
+    --num_train_epochs 5 \
+    --eval_steps 200 \
+    --save_total_limit 3 \
+    --report_to wandb \
+    --per_device_train_batch_size 4
+```
+
+### Inference
+
+Infer using either the fine-tuned checkpoint or the original model:
+
+```bash
+# Finetuned model
+swift infer --model SimulaMet/PointDetectCount-Qwen2.5-VL-7B-LoRA \
+    --val_dataset https://huggingface.co/datasets/SimulaMet/MedMultiPoints/resolve/main/instruction_dataset/multi-task-test.jsonl \
+    --result_path qwen_outputs/qwen-finetuned-6task-test500-result.jsonl \
+    --use_hf true
+
+# Public checkpoint
+swift infer --model Qwen/Qwen2.5-VL-7B-Instruct \
+    --val_dataset https://huggingface.co/datasets/SimulaMet/MedMultiPoints/resolve/main/instruction_dataset/multi-task-test.jsonl \
+    --result_path qwen_outputs/qwen-public-6task-test500-result.jsonl \
+    --use_hf true
 ```
 
 ---
