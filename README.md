@@ -175,14 +175,14 @@ Evaluation scripts are provided in `evaluate_qwen.py`.
 If you use this work, please cite:
 
 ```bibtex
-@misc{PointDetectCount,
-  title = {{Point, Detect, Count: Multi-Task Medical Image Understanding with Instruction-Tuned Vision-Language Models}},
-  author = {Sushant Gautam and Michael A. Riegler and Pål Halvorsen},
-  journal = {arXiv},
-  year = {2025},
-  month = may,
-  note = {[Online; accessed 17. Jun. 2025]},
-  url = {https://arxiv.org/html/2505.16647v1}
+@incollection{Gautam,
+    author = {Gautam, Sushant and Riegler, Michael A. and Halvorsen, P{\aa}l},
+    title = {{Point, Detect, Count: Multi-Task Medical Image Understanding with Instruction-Tuned Vision-Language Models}},
+    booktitle = {{2025 IEEE 38th International Symposium on Computer-Based Medical Systems (CBMS)}},
+    journal = {Published in: 2025 IEEE 38th International Symposium on Computer-Based Medical Systems (CBMS)},
+    pages = {18--20},
+    publisher = {IEEE},
+    doi = {10.1109/CBMS65348.2025.00090}
 }
 ```
 
